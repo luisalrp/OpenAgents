@@ -11,8 +11,12 @@ redis_args = {
     "port": 6379,
     "decode_responses": True
 }
+logger.debug(f"Connecting to Redis server at {redis_args['host']}:{redis_args['port']}")
 if password:
+    logger.debug("Using password authentication")
     redis_args["password"] = password
+else:
+    logger.debug("No password provided")
 
 r = redis.Redis(**redis_args)
 

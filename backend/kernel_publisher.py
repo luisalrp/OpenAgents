@@ -4,7 +4,17 @@ from typing import Any
 from backend.utils.utils import logger
 import os
 
-r = redis.Redis(host=os.getenv("REDIS_SERVER"), port=6379, decode_responses=True)
+# r = redis.Redis(host=os.getenv("REDIS_SERVER"), port=6379, decode_responses=True)
+password = os.getenv("REDIS_PASSWORD")
+redis_args = {
+    "host": os.getenv("REDIS_SERVER"),
+    "port": 6379,
+    "decode_responses": True
+}
+if password:
+    redis_args["password"] = password
+
+r = redis.Redis(**redis_args)
 
 
 # Set the queue and pending key
